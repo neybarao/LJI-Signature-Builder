@@ -127,7 +127,7 @@
                 <span>Pronouns (Optional)</span>
                 <select id="lji_pronouns">
                     <option value="" disabled selected>Select...</option>
-                    <option value="None">None</option>
+                    <option value="">None</option>
                     <option value="She/Her/Hers">She/Her/Hers</option>
                     <option value="He/Him/His">He/Him/His</option>
                     <option value="They/Them/Theirs">They/Them/Theirs</option>
@@ -149,11 +149,6 @@
                 <span>Email</span>
                 <input type="text" id="lji_email" placeholder="Enter Email">
             </label>
-
-            <label>
-                <span>Work Phone</span>
-                <input type="text" placeholder="Pick location..." readonly>
-            </label>
         </form>
     </div>
 
@@ -168,13 +163,16 @@
                     <img src="./static/img/lji-logo-vertical-small.png" alt="LJI" width="108" height="80">
 
                     <div class="signature-text">
-                        <p class="disabled" id="signature_name">Enter First & Last Name</p>
-                        <p class="disabled" id="signature_job_title">Enter Job Title</p>
+                        <p>
+                            <span id="signature_name">Enter First & Last Name</span>
+                            <span id="signature_pronouns">Pronouns</span>
+                        </p>
+                        <p id="signature_job_title">Enter Job Title</p>
                         <br>
-                        <p class="disabled" id="signature_email">Enter Email</p>
-                        <p>Website: <a href="https://lji.io/" target="_blank">www.lji.io</a></p>
+                        <p id="signature_email">Enter Email</p>
+                        <p><a href="https://lji.io/" target="_blank">www.lji.io</a></p>
                         <br>
-                        <p class="disabled">Select Location</p>
+                        <p id="signature_location">Select Location</p>
                     </div>
                 </div>
 
@@ -182,7 +180,7 @@
             </div>
         </div>
         
-        <button><img src="./static/img/left.svg"> Copy Signature</button>
+        <button><img src="./static/img/icon-copy.svg"> Copy Signature</button>
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -195,8 +193,10 @@
 
                 // Get references to preview elements
                 var signatureName = document.getElementById('signature_name');
+                var signaturePronouns = document.getElementById('signature_pronouns');
                 var signatureJobTitle = document.getElementById('signature_job_title');
                 var signatureEmail = document.getElementById('signature_email');
+                var signatureLocation = document.getElementById('signature_location');
 
                 // Event listener for form inputs
                 nameInput.addEventListener('input', updatePreview);
@@ -209,10 +209,55 @@
                 function updatePreview() {
                     // Update preview elements with form input values
                     signatureName.textContent = nameInput.value || 'Enter First & Last Name';
+                    signaturePronouns.textContent = pronounsSelect.value || '';
                     signatureJobTitle.textContent = jobTitleInput.value || 'Enter Job Title';
                     signatureEmail.textContent = emailInput.value || 'Enter Email';
+                    signatureLocation.textContent = locationSelect.value || 'Select Location';
+                };
+
+                // Get reference to the copy button
+                var copyButton = document.querySelector('button');
+
+                // Event listener for copy button click
+                copyButton.addEventListener('click', copySignature);
+
+                // Function to copy signature to clipboard
+                function copySignature() {
+                    // Get the signature container
+                    var signatureContainer = document.querySelector('.signature-container');
+
+                    // Create a new canvas element
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+
+                    // Set the canvas dimensions to match the signature container
+                    canvas.width = signatureContainer.offsetWidth;
+                    canvas.height = signatureContainer.offsetHeight;
+
+                    // Draw the signature content onto the canvas
+                    context.drawSvg(signatureContainer.innerHTML, 0, 0, canvas.width, canvas.height);
+
+                    // Convert the canvas to an image
+                    var signatureImage = new Image();
+                    signatureImage.src = canvas.toDataURL('image/png');
+
+                    // Create a temporary anchor element to trigger the download
+                    var downloadLink = document.createElement('a');
+                    downloadLink.href = signatureImage.src;
+                    downloadLink.download = 'email_signature.png';
+
+                    // Append the anchor element to the document and trigger the download
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+
+                    // Remove the temporary anchor element
+                    document.body.removeChild(downloadLink);
+
+                    // You can provide user feedback here, e.g., a notification
+                    alert('Signature image copied to clipboard!');
                 }
             });
+
         </script>
     </div>
 </body>
