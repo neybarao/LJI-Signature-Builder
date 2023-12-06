@@ -180,7 +180,7 @@ form label select:focus {
 .signature-content {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
     align-self: stretch;
 }
 
