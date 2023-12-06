@@ -174,7 +174,7 @@
                 var nameInput = document.getElementById('lji_name');
                 var jobTitleInput = document.getElementById('lji_job_title');
                 var pronounsSelect = document.getElementById('lji_pronouns');
-                var locationSelect = document.getElementById('lji_location');
+                // var locationSelect = document.getElementById('lji_location');
                 var emailInput = document.getElementById('lji_email');
 
                 // Get references to preview elements
@@ -182,13 +182,13 @@
                 var signaturePronouns = document.getElementById('signature_pronouns');
                 var signatureJobTitle = document.getElementById('signature_job_title');
                 var signatureEmail = document.getElementById('signature_email');
-                var signatureLocation = document.getElementById('signature_location');
+                // var signatureLocation = document.getElementById('signature_location');
 
                 // Event listener for form inputs
                 nameInput.addEventListener('input', updatePreview);
                 jobTitleInput.addEventListener('input', updatePreview);
                 pronounsSelect.addEventListener('change', updatePreview);
-                locationSelect.addEventListener('change', updatePreview);
+                // locationSelect.addEventListener('change', updatePreview);
                 emailInput.addEventListener('input', updatePreview);
 
                 // Event listener for copy button click
@@ -202,7 +202,7 @@
                     signaturePronouns.textContent = pronounsSelect.value || '';
                     signatureJobTitle.textContent = jobTitleInput.value || 'Enter Job Title';
                     signatureEmail.textContent = emailInput.value || 'Enter Email';
-                    signatureLocation.textContent = locationSelect.value || 'Select Location';
+                    // signatureLocation.textContent = locationSelect.value || 'Select Location';
                 };
 
                 // Function to copy signature to clipboard
