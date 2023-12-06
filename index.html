@@ -185,37 +185,34 @@
         <button><img src="./static/img/left.svg"> Copy Signature</button>
 
         <script>
-            const ljiName = document.getElementById("lji_name");
-            const ljiJobTitle = document.getElementById("lji_job_title");
-            const ljiPronouns = document.getElementById("lji_pronouns");
-            const ljiLocation = document.getElementById("lji_location");
-            const ljiEmail = document.getElementById("lji_email");
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get references to form elements
+                var nameInput = document.getElementById('lji_name');
+                var jobTitleInput = document.getElementById('lji_job_title');
+                var pronounsSelect = document.getElementById('lji_pronouns');
+                var locationSelect = document.getElementById('lji_location');
+                var emailInput = document.getElementById('lji_email');
 
-            ljiName.addEventListener(
-                "blur",
-                () => document.getElementById("signature_name").innerHTML = ljiName.value,
-                true,
-            )
-            
-            ljiJobTitle.addEventListener(
-                "blur",
-                () => document.getElementById("signature_job_title").innerHTML = ljiJobTitle.value,
-                true,
-            )
-            
-            ljiPronouns.addEventListener(
-                "blur",
-                () => document.getElementById("signature_email").innerHTML = ljiPronouns.value,
-                true,
-            )
+                // Get references to preview elements
+                var signatureName = document.getElementById('signature_name');
+                var signatureJobTitle = document.getElementById('signature_job_title');
+                var signatureEmail = document.getElementById('signature_email');
 
-            // function populateSignature (origin, destiny) {
-            //     origin.addEventListener (
-            //         "blur",
-            //         () => document.getElementById(destiny).innerHTML = origin.value,
-            //         true,`
-            //     )
-            // }            
+                // Event listener for form inputs
+                nameInput.addEventListener('input', updatePreview);
+                jobTitleInput.addEventListener('input', updatePreview);
+                pronounsSelect.addEventListener('change', updatePreview);
+                locationSelect.addEventListener('change', updatePreview);
+                emailInput.addEventListener('input', updatePreview);
+
+                // Function to update the preview
+                function updatePreview() {
+                    // Update preview elements with form input values
+                    signatureName.textContent = nameInput.value || 'Enter First & Last Name';
+                    signatureJobTitle.textContent = jobTitleInput.value || 'Enter Job Title';
+                    signatureEmail.textContent = emailInput.value || 'Enter Email';
+                }
+            });
         </script>
     </div>
 </body>
